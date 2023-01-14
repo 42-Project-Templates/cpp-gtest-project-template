@@ -32,6 +32,10 @@ address: re
 
 print-%: ; @echo $* = $($*)
 
+submodules:
+	git submodule sync
+	git submodule update --init
+
 $(NAME): $(BUILD_DIR) $(OBJS)
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OBJS) -o $(NAME) $(LDFLAGS) $(LDLIBS)
 
