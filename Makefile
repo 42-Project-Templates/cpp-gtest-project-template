@@ -5,13 +5,18 @@ LDLIBS :=
 
 INCS := include
 
+DIRS :=
 SRC_DIR := src
 BUILD_DIR := .build
 
 SRCS := main.cpp
+SRCS := $(addprefix $(SRC_DIR)/, $(SRCS))
 
 OBJS := $(SRCS:%.cpp=$(BUILD_DIR)/%.o)
 DEPS := $(OBJS:.o=.d)
+
+DIRS += $(SRC_DIR) $(TEST_DIR)
+DIRS := $(addprefix $(BUILD_DIR)/, $(DIRS))
 
 CXX := c++
 CXXFLAGS := -Wall -Werror -Wextra
@@ -36,13 +41,13 @@ submodules:
 	git submodule sync
 	git submodule update --init
 
-$(NAME): $(BUILD_DIR) $(OBJS)
+$(NAME): $(DIRS) $(OBJS)
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OBJS) -o $(NAME) $(LDFLAGS) $(LDLIBS)
 
-$(BUILD_DIR):
+$(DIRS):
 	@test -d $@ || mkdir -p $@
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+$(BUILD_DIR)/%.o: %.cpp
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $< -o $@
 
 clean:
