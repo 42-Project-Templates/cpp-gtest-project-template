@@ -124,6 +124,7 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
+	$(RM) $(TEST_TARGET)
 
 re: fclean all
 
