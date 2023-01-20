@@ -37,7 +37,7 @@ DEPS := $(OBJS:.o=.d)
 #          CPP FLAGS          #
 ###############################
 CXX := c++
-CXXFLAGS := -Wall -Werror -Wextra
+CXXFLAGS := -Wall -Werror -Wextra -std=c++14
 CPPFLAGS := $(addprefix -I, $(INCS)) -MMD -MP
 
 ###############################
